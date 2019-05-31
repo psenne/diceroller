@@ -9,7 +9,7 @@ const Box = styled.div`
 export default function Die({ dicetype }) {
     const [number, setnumber] = useState(1);
     const [mod, setmod] = useState(0);
-    const [total, settotal] = useState("");
+    const [total, settotal] = useState([]);
 
     const UpdateNumber = ev => {
         setnumber(ev.currentTarget.value);
@@ -21,19 +21,22 @@ export default function Die({ dicetype }) {
 
     const Roll = () => {
         var rolls = 0;
+        var arrTotal = [...total];
 
         for (var i = 0; i < parseInt(number); i++) {
             rolls = rolls + Math.floor(Math.random() * parseInt(dicetype)) + 1;
         }
 
-        settotal(rolls + parseInt(mod));
+        arrTotal.push(rolls + parseInt(mod));
+
+        settotal(arrTotal);
     };
 
     return (
         <Box>
             <div>
                 <input type="number" onChange={UpdateNumber} value={number} min="1" />d{dicetype} + <input type="number" onChange={UpdateMod} value={mod} min="0" />
-                <button onClick={Roll}>Roll</button> {total}
+                <button onClick={Roll}>Roll</button> {total.join(", ")}
             </div>
         </Box>
     );
