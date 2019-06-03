@@ -5,7 +5,7 @@ import Die from "./Die";
 function App() {
     return (
         <div className="App">
-            <header className="App-header">Dice/Stat Roller</header>
+            <header className="App-header"><div class="container">Dice/Stat Roller</div></header>
             <div>
                 <Die dicetype="4" />
                 <Die dicetype="6" />
