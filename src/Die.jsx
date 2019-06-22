@@ -1,49 +1,37 @@
-import React, { useState } from "react";
+import React, { Component } from "react";
 import styled from "styled-components";
 
-const Box = styled.div`
+const GetRandomNumber = () => {
+    return window.crypto.getRandomValues(new Uint32Array(1))[0] / (Math.pow(2, 32) - 1);
+};
+
+const Box = styled.span`
     border: 1px solid gray;
     padding: 0.5rem;
+    margin: 1rem;
 `;
 
-const DieOutline = styled.div`
-    border: 0;
-`;
+export default class Die extends Component {
+    constructor(props) {
+        super(props);
 
-export default function Die({ dicetype }) {
-    const [number, setnumber] = useState(1);
-    const [mod, setmod] = useState(0);
-    const [total, settotal] = useState(0);
-    const [dice, setdice] = useState([]);
+        this.state = {
+            roll: 0
+        };
+    }
 
-    const UpdateNumber = ev => {
-        setnumber(ev.currentTarget.value);
-    };
+    componentDidMount() {
+        const { onRoll, dicetype } = this.props;
+        const roll = Math.floor(GetRandomNumber() * parseInt(dicetype)) + 1;
 
-    const UpdateMod = ev => {
-        setmod(ev.currentTarget.value);
-    };
+        this.setState({
+            roll
+        });
+        onRoll(roll);
+    }
 
-    const Roll = () => {
-        var rolls = 0;
-        // var arrTotal = [...total];
-        var arrTotal = [];
-
-        for (var i = 0; i < parseInt(number); i++) {
-            var roll = Math.floor(Math.random() * parseInt(dicetype)) + 1;
-            rolls = rolls + roll;
-            arrTotal.push(roll);
-        }
-        setdice(arrTotal);
-        settotal(rolls);
-    };
-
-    return (
-        <Box>
-            <div>
-                <input type="number" onChange={UpdateNumber} value={number} min="1" />d{dicetype}
-                <button onClick={Roll}>Roll</button> {dice.join(" + ")} {dice.length > 1 ? " = " + total : ""}
-            </div>
-        </Box>
-    );
+    render() {
+        const { roll } = this.state;
+        return <Box>{roll}</Box>;
+    }
 }
