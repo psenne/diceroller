@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import styled from "styled-components";
-import DieButton from "./DieButton";
+import Die from "./Die";
 import DiceRoller from "./DiceRoller";
 
 export default function DiceChooser() {
@@ -16,12 +15,12 @@ export default function DiceChooser() {
         <>
             <h2>Click a die below to add to the roll</h2>
             <div>
-                <DieButton AddToDiceRoller={AddToDiceRoller}>4</DieButton>
-                <DieButton AddToDiceRoller={AddToDiceRoller}>6</DieButton>
-                <DieButton AddToDiceRoller={AddToDiceRoller}>8</DieButton>
-                <DieButton AddToDiceRoller={AddToDiceRoller}>10</DieButton>
-                <DieButton AddToDiceRoller={AddToDiceRoller}>12</DieButton>
-                <DieButton AddToDiceRoller={AddToDiceRoller}>20</DieButton>
+                <Die clickable AddToDiceRoller={AddToDiceRoller} dicetype="4" roll="4" />
+                <Die clickable AddToDiceRoller={AddToDiceRoller} dicetype="6" roll="6" />
+                <Die clickable AddToDiceRoller={AddToDiceRoller} dicetype="8" roll="8" />
+                <Die clickable AddToDiceRoller={AddToDiceRoller} dicetype="10" roll="10" />
+                <Die clickable AddToDiceRoller={AddToDiceRoller} dicetype="12" roll="12" />
+                <Die clickable AddToDiceRoller={AddToDiceRoller} dicetype="20" roll="20" />
             </div>
             <DiceRoller ClearSelection={ClearSelection} dicetypes={dicetypes} />
         </>

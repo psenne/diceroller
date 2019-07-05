@@ -36,24 +36,32 @@ const DiceRoller = ({ dicetypes, ClearSelection }) => {
 
     return (
         <div id="diceroller">
+            <p>
+                <button onClick={Roll}>Roll Dice</button> <button onClick={Clear}>Clear Dice</button>
+            </p>
+
             {dicetypes.length > 0 && (
-                <p>
-                    Dice chosen:
-                    {dicetypes.map(dicetype => {
-                        return <Die dicetype={dicetype} />;
-                    })}
-                </p>
+                <>
+                    <h2>Dice chosen</h2>
+                    <p>
+                        {dicetypes.map((dicetype, i) => {
+                            return <Die key={`chosen-${i}`} dicetype={dicetype} roll="?" />;
+                        })}
+                    </p>
+                </>
             )}
-            <p>
-                <button onClick={Roll}>Roll Dice</button>
-                <button onClick={Clear}>Clear Dice</button>
-            </p>
-            <p>
-                {dice.map(({ dicetype, roll }) => {
-                    return <Die dicetype={`d${dicetype}`} roll={roll} />;
-                })}
-            </p>
-            <p>Total: {total}</p>
+
+            {dice.length > 0 && (
+                <>
+                    <h2>Rolls</h2>
+                    <p>
+                        {dice.map(({ dicetype, roll }, i) => {
+                            return <Die key={`rolled-${i}`} dicetype={dicetype} roll={roll} />;
+                        })}
+                    </p>
+                </>
+            )}
+            {total > 0 && <p>Total: {total}</p>}
         </div>
     );
 };
