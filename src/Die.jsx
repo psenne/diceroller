@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
-const GetRandomNumber = () => {
-    return window.crypto.getRandomValues(new Uint32Array(1))[0] / (Math.pow(2, 32) - 1);
-};
 
 const Box = styled.span`
     border: 1px solid gray;

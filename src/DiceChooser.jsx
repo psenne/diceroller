@@ -9,6 +9,7 @@ export default function DiceChooser() {
     const AddToDiceRoller = dicetype => {
         setdice([...dicetypes, dicetype]);
     };
+
     return (
         <>
             <h2>Click a die below to add to the roll</h2>

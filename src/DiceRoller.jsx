@@ -1,34 +1,45 @@
 import React, { useState } from "react";
 import Die from "./Die";
 
+const GetRandomNumber = () => {
+    return window.crypto.getRandomValues(new Uint32Array(1))[0] / (Math.pow(2, 32) - 1);
+};
+
 const DiceRoller = ({ dicetypes, numberofdice }) => {
-    const [number, setnumber] = useState([]);
+    const [rolls, setrolls] = useState([]);
     const [total, settotal] = useState(0);
     const [dice, setdice] = useState([]);
 
-    const AddToRolls = roll => {
-        var arrTotal = [...dice, roll];
-        var rolls = arrTotal.reduce((total, die) => {
+    const CalcTotal = () => {
+        var totaldice = rolls.reduce((total, die) => {
             return total + die;
         }, 0);
 
-        setdice(arrTotal);
-        settotal(rolls);
+        settotal(totaldice);
     };
 
     const Roll = () => {
-        setnumber([...Array(numberofdice).keys()]);
+        
     };
+
+    const Clear = () =>{
+        setrolls([]);
+        CalcTotal();
+    }
 
     return (
         <div id="diceroller">
             <p>
-                {dicetypes.map(dicetype => {
-                    return <Die dicetype={dicetype} onRoll={AddToRolls} />;
+                <button onClick={Roll}>Roll Dice</button>
+                <button onClick={Clear}>Clear Dice</button>
+            </p>
+            <p>
+                {rolls.map(({dicetype, roll}) => {
+                    return <Die dicetype={dicetype} roll={roll} />;
                 })}
             </p>
             <p>
-                Total: {dice.join(" + ")} {dice.length > 1 ? " = " + total : ""}
+                Total: {dice.join(" + ")} {rolls.length > 1 ? " = " + total : ""}
             </p>
         </div>
     );
