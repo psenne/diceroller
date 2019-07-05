@@ -10,6 +10,8 @@ export default function DiceChooser() {
         setdice([...dicetypes, dicetype]);
     };
 
+    const ClearSelection = () => setdice([]);
+
     return (
         <>
             <h2>Click a die below to add to the roll</h2>
@@ -21,7 +23,7 @@ export default function DiceChooser() {
                 <DieButton AddToDiceRoller={AddToDiceRoller}>12</DieButton>
                 <DieButton AddToDiceRoller={AddToDiceRoller}>20</DieButton>
             </div>
-            <DiceRoller dicetypes={dicetypes} />
+            <DiceRoller ClearSelection={ClearSelection} dicetypes={dicetypes} />
         </>
     );
 }
