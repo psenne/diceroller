@@ -31,7 +31,6 @@ const DiceRoller = ({ dicetypes, ClearSelection }) => {
 
     const Clear = () => {
         setdice([]);
-        //setrolls([]);
         ClearSelection();
     };
 
