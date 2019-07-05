@@ -9,6 +9,11 @@ const DiceRoller = ({ dicetypes, ClearSelection }) => {
     const [dice, setdice] = useState([]);
     const [rolls, setrolls] = useState([]);
     const [total, settotal] = useState(0);
+    const [showchosen, updatechosen] = useState(false);
+
+    useEffect(() => {
+        updatechosen(true);
+    }, [dicetypes]);
 
     useEffect(() => {
         setrolls(dice.map(d => d.roll));
@@ -27,6 +32,7 @@ const DiceRoller = ({ dicetypes, ClearSelection }) => {
             return { dicetype: die, roll: GetDiceRoll(die) };
         });
         setdice(dicerolls);
+        updatechosen(false);
     };
 
     const Clear = () => {
@@ -40,9 +46,8 @@ const DiceRoller = ({ dicetypes, ClearSelection }) => {
                 <button onClick={Roll}>Roll Dice</button> <button onClick={Clear}>Clear Dice</button>
             </p>
 
-            {dicetypes.length > 0 && (
+            {dicetypes.length > 0 && showchosen && (
                 <>
-                    <h2>Dice chosen</h2>
                     <p>
                         {dicetypes.map((dicetype, i) => {
                             return <Die key={`chosen-${i}`} dicetype={dicetype} roll="?" />;
@@ -51,9 +56,8 @@ const DiceRoller = ({ dicetypes, ClearSelection }) => {
                 </>
             )}
 
-            {dice.length > 0 && (
+            {dice.length > 0 && !showchosen && (
                 <>
-                    <h2>Rolls</h2>
                     <p>
                         {dice.map(({ dicetype, roll }, i) => {
                             return <Die key={`rolled-${i}`} dicetype={dicetype} roll={roll} />;
@@ -61,7 +65,7 @@ const DiceRoller = ({ dicetypes, ClearSelection }) => {
                     </p>
                 </>
             )}
-            {total > 0 && <p>Total: {total}</p>}
+            {total > 0 && !showchosen && <p>Total: {total}</p>}
         </div>
     );
 };
